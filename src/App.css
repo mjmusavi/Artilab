@@ -1,0 +1,43 @@
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+}
+
+.app{
+  padding:40px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  padding:25px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.btn{
+  margin-top:40px;
+  padding:15px 30px;
+  border:none;
+  background:#1976d2;
+  color:white;
+  font-size:18px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.btn:hover{
+  background:#125ea7;
+}
