@@ -1,25 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function AddDevice({addDevice}) {
-
+function AddDevice({
+  addDevice,
+  editingDevice,
+  updateDevice,
+}) {
 const[name,setName]=useState("");
 const[company,setCompany]=useState("");
 const[model,setModel]=useState("");
+const[serialNumber,setSerialNumber]=useState("");
+const[assetNumber,setAssetNumber]=useState("");
 
-const save=()=>{
+useEffect(() => {
+  if (editingDevice) {
+    setName(editingDevice.name || "");
+    setCompany(editingDevice.company || "");
+    setModel(editingDevice.model || "");
+    setSerialNumber(editingDevice.serialNumber || "");
+    setAssetNumber(editingDevice.assetNumber || "");
+  }
+}, [editingDevice]);
+const save = () => {
 
-addDevice({
+const device = {
+  name,
+  company,
+  model,
+  serialNumber,
+  assetNumber,
+};
 
-name,
-company,
-model
+  if (editingDevice) {
+    updateDevice(device);
+  } else {
+    addDevice(device);
+  }
 
-});
-
-setName("");
-setCompany("");
-setModel("");
-
+  setName("");
+  setCompany("");
+  setModel("");
+  setSerialNumber("");
+setAssetNumber("");
 };
 
 return(
@@ -35,6 +56,29 @@ value={name}
 onChange={(e)=>setName(e.target.value)}
 
 placeholder="Device Name"
+
+/>
+
+<br/><br/>
+<input
+
+value={serialNumber}
+
+onChange={(e)=>setSerialNumber(e.target.value)}
+
+placeholder="Serial Number"
+
+/>
+
+<br/><br/>
+
+<input
+
+value={assetNumber}
+
+onChange={(e)=>setAssetNumber(e.target.value)}
+
+placeholder="Asset Number"
 
 />
 
@@ -70,7 +114,7 @@ onClick={save}
 
 >
 
-Save Device
+{editingDevice ? "Update Device" : "Save Device"}
 
 </button>
 
