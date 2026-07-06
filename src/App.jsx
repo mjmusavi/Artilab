@@ -1,6 +1,15 @@
+import { Routes, Route } from "react-router-dom";
+
+import Dashboard from "./pages/Dashboard";
+import Devices from "./pages/Devices";
+import DeviceDetails from "./pages/DeviceDetails";
+import Service from "./pages/Service";
+import Calibration from "./pages/Calibration";
+import Documents from "./pages/Documents";
+import AI from "./pages/AI";
 import { useState, useEffect } from "react";
 import "./App.css";
-import AddDevice from "./components/AddDevice";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [devices, setDevices] = useState(() => {
@@ -44,80 +53,69 @@ function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <h1>🧪 ArtiLab</h1>
-        <p>Laboratory Equipment Management System</p>
-      </header>
+      <Sidebar />
+    <div className="main-content">
 
-      <div className="cards">
-        <div className="card">
-          <h2>Devices</h2>
-          <h3>{devices.length}</h3>
-        </div>
+  <Routes>
 
-        <div className="card">
-          <h2>Maintenance</h2>
-          <h3>0</h3>
-        </div>
+    <Route
+      path="/"
+      element={
+        <Dashboard
+          devices={devices}
+          filteredDevices={filteredDevices}
+          addDevice={addDevice}
+          editingDevice={editingDevice}
+          updateDevice={updateDevice}
+          editDevice={editDevice}
+          deleteDevice={deleteDevice}
+          search={search}
+          setSearch={setSearch}
+        />
+      }
+    />
 
-        <div className="card">
-          <h2>Calibration</h2>
-          <h3>0</h3>
-        </div>
+    <Route
+      path="/devices"
+      element={<Devices />}
+    />
 
-        <div className="card">
-          <h2>Faults</h2>
-          <h3>0</h3>
-        </div>
-      </div>
+    <Route
+  path="/devices/:id"
+  element={
+    <DeviceDetails
+      devices={devices}
+    />
+  }
+/>
 
-      <AddDevice
-        addDevice={addDevice}
-        editingDevice={editingDevice}
-        updateDevice={updateDevice}
-      />
+    <Route
+      path="/service"
+      element={<Service />}
+    />
 
-      <hr />
+    <Route
+      path="/calibration"
+      element={<Calibration />}
+    />
 
-      <h2>Device List</h2>
+    <Route
+      path="/documents"
+      element={<Documents />}
+    />
 
-      <input
-        type="text"
-        placeholder="Search Device..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+    <Route
+      path="/ai"
+      element={<AI />}
+    />
 
-      {filteredDevices.map((item, index) => (
-        <div className="card" key={index}>
-          <h3>{item.name}</h3>
+  </Routes>
 
-          <p>{item.company}</p>
-
-          <p>{item.model}</p>
-
-          <p>Serial: {item.serialNumber}</p>
-
-          <p>Asset: {item.assetNumber}</p>
-
-          <button
-            onClick={() => editDevice(index)}
-            className="btn"
-            style={{ marginRight: "10px" }}
-          >
-            Edit
-          </button>
-
-          <button
-            onClick={() => deleteDevice(index)}
-            className="btn"
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+</div>
     </div>
   );
 }
 
 export default App;
+
+

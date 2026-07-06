@@ -11,6 +11,12 @@ const[model,setModel]=useState("");
 const[serialNumber,setSerialNumber]=useState("");
 const[assetNumber,setAssetNumber]=useState("");
 
+const[status,setStatus]=useState("Active");
+const[department,setDepartment]=useState("");
+const[laboratory,setLaboratory]=useState("");
+const [installationDate, setInstallationDate] = useState("");
+const [warrantyExpiry, setWarrantyExpiry] = useState("");
+const [supplier, setSupplier] = useState("");
 useEffect(() => {
   if (editingDevice) {
     setName(editingDevice.name || "");
@@ -18,6 +24,12 @@ useEffect(() => {
     setModel(editingDevice.model || "");
     setSerialNumber(editingDevice.serialNumber || "");
     setAssetNumber(editingDevice.assetNumber || "");
+    setStatus(editingDevice.status || "Active");
+    setDepartment(editingDevice.department || "");
+    setLaboratory(editingDevice.laboratory || "");
+    setInstallationDate(editingDevice.installationDate || "");
+    setWarrantyExpiry(editingDevice.warrantyExpiry || "");
+    setSupplier(editingDevice.supplier || "");
   }
 }, [editingDevice]);
 const save = () => {
@@ -28,6 +40,12 @@ const device = {
   model,
   serialNumber,
   assetNumber,
+  status,
+  department,
+  laboratory,
+  installationDate,
+  warrantyExpiry,
+  supplier,
 };
 
   if (editingDevice) {
@@ -41,77 +59,127 @@ const device = {
   setModel("");
   setSerialNumber("");
 setAssetNumber("");
+setStatus("Active");
+setDepartment("");
+setLaboratory("");
+setInstallationDate("");
+setWarrantyExpiry("");
+setSupplier("");
 };
 
-return(
+return (
 
 <div className="card">
 
 <h2>Add Device</h2>
 
-<input
+<div className="form-grid">
 
+<input
 value={name}
-
 onChange={(e)=>setName(e.target.value)}
-
 placeholder="Device Name"
-
 />
 
-<br/><br/>
 <input
-
-value={serialNumber}
-
-onChange={(e)=>setSerialNumber(e.target.value)}
-
-placeholder="Serial Number"
-
-/>
-
-<br/><br/>
-
-<input
-
-value={assetNumber}
-
-onChange={(e)=>setAssetNumber(e.target.value)}
-
-placeholder="Asset Number"
-
-/>
-
-<br/><br/>
-
-<input
-
 value={company}
-
 onChange={(e)=>setCompany(e.target.value)}
-
 placeholder="Manufacturer"
-
 />
-
-<br/><br/>
 
 <input
-
 value={model}
-
 onChange={(e)=>setModel(e.target.value)}
-
 placeholder="Model"
-
 />
 
-<br/><br/>
+<input
+value={serialNumber}
+onChange={(e)=>setSerialNumber(e.target.value)}
+placeholder="Serial Number"
+/>
 
-<button className="btn"
+<input
+value={assetNumber}
+onChange={(e)=>setAssetNumber(e.target.value)}
+placeholder="Asset Number"
+/>
 
+<select
+value={status}
+onChange={(e)=>setStatus(e.target.value)}
+>
+
+<option>Active</option>
+
+<option>Maintenance</option>
+
+<option>Out of Service</option>
+
+</select>
+
+<select
+value={department}
+onChange={(e)=>setDepartment(e.target.value)}
+>
+
+<option value="">Select Department</option>
+
+<option>Hematology</option>
+
+<option>Biochemistry</option>
+
+<option>Microbiology</option>
+
+<option>Immunology</option>
+
+<option>Pathology</option>
+
+</select>
+
+<select
+value={laboratory}
+onChange={(e)=>setLaboratory(e.target.value)}
+>
+
+<option value="">Select Laboratory</option>
+
+<option>Central Lab</option>
+
+<option>Chemistry Lab</option>
+
+<option>Hematology Lab</option>
+
+<option>Microbiology Lab</option>
+
+<option>PCR Lab</option>
+
+</select>
+<input
+  type="date"
+  value={installationDate}
+  onChange={(e) => setInstallationDate(e.target.value)}
+/>
+
+<input
+  type="date"
+  value={warrantyExpiry}
+  onChange={(e) => setWarrantyExpiry(e.target.value)}
+/>
+
+<input
+  value={supplier}
+  onChange={(e) => setSupplier(e.target.value)}
+  placeholder="Supplier"
+/>
+
+</div>
+
+<br/>
+
+<button
+className="btn"
 onClick={save}
-
 >
 
 {editingDevice ? "Update Device" : "Save Device"}
